@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+       Schema::table('progress_records', function (Blueprint $table) {
+        // Mengubah kolom 'assessment' untuk menerima nilai baru
+        $table->enum('assessment', ['lancar', 'tidak lancar', 'lulus', 'mengulang'])->default('lancar')->change();
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('progress_records', function (Blueprint $table) {
+            //
+        });
+    }
+};
