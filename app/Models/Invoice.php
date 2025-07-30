@@ -11,7 +11,16 @@ class Invoice extends Model
 
     protected $fillable = [
         'student_id', 'title', 'month', 'year', 'amount', 
-        'amount_paid', 'due_date', 'status', 'paid_at'
+        'amount_paid', 'due_date', 'status', 'paid_at','type'
+    ];
+
+    /**
+     * [BARU] Menentukan tipe data kolom secara otomatis.
+     * Ini akan mengubah 'paid_at' dan 'due_date' menjadi objek Carbon.
+     */
+    protected $casts = [
+        'paid_at' => 'datetime',
+        'due_date' => 'date',
     ];
 
     public function student()

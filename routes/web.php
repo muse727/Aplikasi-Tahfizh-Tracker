@@ -51,14 +51,19 @@ Route::middleware('auth')->group(function () {
 
 
 // GRUP UNTUK HALAMAN YANG HANYA BISA DIAKSES ADMIN
-Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     // Halaman Manajemen User
     Route::resource('users', UserController::class);
     // routes/web.php -> di dalam grup admin
-Route::get('/finance', [App\Http\Controllers\Admin\FinanceController::class, 'index'])->name('finance.index');
-Route::post('/finance/generate', [App\Http\Controllers\Admin\FinanceController::class, 'generateInvoices'])->name('finance.generate');
-Route::post('/finance/invoices/{invoice}/payments', [App\Http\Controllers\Admin\FinanceController::class, 'recordPayment'])->name('finance.recordPayment');
-Route::get('/finance/export', [App\Http\Controllers\Admin\FinanceController::class, 'export'])->name('finance.export');
+    Route::get('/finance', [App\Http\Controllers\Admin\FinanceController::class, 'index'])->name('finance.index');
+    Route::post('/finance/generate', [App\Http\Controllers\Admin\FinanceController::class, 'generateInvoices'])->name('finance.generate');
+    Route::post('/finance/invoices/{invoice}/payments', [App\Http\Controllers\Admin\FinanceController::class, 'recordPayment'])->name('finance.recordPayment');
+    Route::get('/finance/export', [App\Http\Controllers\Admin\FinanceController::class, 'export'])->name('finance.export');
+    Route::post('/finance/invoices/{invoice}/payments', [App\Http\Controllers\Admin\FinanceController::class, 'recordPayment'])->name('finance.recordPayment');
+    Route::delete('/finance/invoices/{invoice}', [App\Http\Controllers\Admin\FinanceController::class, 'destroy'])->name('finance.destroy');
+    Route::delete('/finance/invoices', [App\Http\Controllers\Admin\FinanceController::class, 'bulkDestroy'])->name('finance.bulkDestroy');
+    Route::get('/finance/export', [App\Http\Controllers\Admin\FinanceController::class, 'export'])->name('finance.export');
+    Route::post('/finance/custom-invoice', [App\Http\Controllers\Admin\FinanceController::class, 'storeCustomInvoice'])->name('finance.storeCustom');
 
 });
 
